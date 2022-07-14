@@ -1,22 +1,49 @@
-import React from 'react'
+import React from "react";
 
-const AddContact = () => {
-  return (
-    <div className='ui main'>
-      <h3>Add Contact</h3>
-      <form className='ui form'>
-        <div className='field'>
-          <label>Name</label>
-          <input type='text' name='name' placeholder='Name' />
-        </div>
-        <div className='field'>
-          <label>Email</label>
-          <input type='text' name='email' placeholder='Email' />
-        </div>
-        <button className='ui button blue'>Add</button>
-      </form>
-    </div>
-  )
+class AddContact extends React.Component {
+  state = {
+    name: "",
+    email: "",
+  };
+  add = (e) => {
+    e.preventDefault(); // to avoid refresh the page
+    if (this.state.name === "" && this.state.email === "") {
+      alert("All the fields are mandatory!");
+      return;
+    }
+    this.props.addContatctHandler(this.state);
+    this.setState({ name: "", email: "" });
+  };
+  render() {
+    return (
+      <div className="ui main">
+        <h2 style={{marginTop:'45px'}}>Add Contact</h2>
+        <form className="ui form" onSubmit={this.add}>
+          <div className="field">
+            <label>Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Name"
+              value={this.state.name}
+              onChange={(e) => this.setState({ name: e.target.value })}
+            />
+          </div>
+          <div className="field">
+            <label>Email</label>
+            <input
+              type="text"
+              name="email"
+              placeholder="Email"
+              value={this.state.email}
+              onChange={(e) => this.setState({ email: e.target.value })}
+            />
+          </div>
+          <button className="ui button blue">Add</button>
+        </form>
+      </div>
+    );
+  }
 }
 
-export default AddContact
+export default AddContact;
