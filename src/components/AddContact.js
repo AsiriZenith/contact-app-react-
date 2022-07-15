@@ -2,6 +2,7 @@ import React from "react";
 
 class AddContact extends React.Component {
   state = {
+    id: Math.floor(Math.random() * 100000),
     name: "",
     email: "",
   };
@@ -17,7 +18,7 @@ class AddContact extends React.Component {
   render() {
     return (
       <div className="ui main">
-        <h2 style={{marginTop:'45px'}}>Add Contact</h2>
+        <h2 style={{ marginTop: "45px" }}>Add Contact</h2>
         <form className="ui form" onSubmit={this.add}>
           <div className="field">
             <label>Name</label>
