@@ -2,7 +2,7 @@ import React from "react";
 
 class AddContact extends React.Component {
   state = {
-    id: Math.floor(Math.random() * 100000),
+    id: 0,
     name: "",
     email: "",
   };
@@ -37,7 +37,11 @@ class AddContact extends React.Component {
               name="email"
               placeholder="Email"
               value={this.state.email}
-              onChange={(e) => this.setState({ email: e.target.value })}
+              onChange={(e) =>
+                this.setState(
+                  { email: e.target.value, id: Math.floor(Math.random() * 100000) }
+                )
+              }
             />
           </div>
           <button className="ui button blue">Add</button>
