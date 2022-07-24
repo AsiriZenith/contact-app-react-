@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Header from "./Header";
 import AddContatct from "./AddContact";
@@ -6,12 +7,11 @@ import ContactList from "./ContatctList";
 
 function App() {
   const LOCAL_STORAGE_KEY = "contacts";
-  
+
   const [contacts, setContacts] = useState([]);
 
   const addContatctHandler = (contact) => {
-    setContacts([...contacts, { id: Math.floor(Math.random() * 100000), ...contact }]);
-    console.log(JSON.stringify(contact));
+    setContacts([...contacts, { ...contact }]);
   };
 
   const removeContactHandler = (id) => {
@@ -34,9 +34,29 @@ function App() {
 
   return (
     <div className="ui container">
-      <Header />
-      <AddContatct addContatctHandler={addContatctHandler} />
-      <ContactList contacts={contacts} getContactId={removeContactHandler} />
+      <Router>
+        <Header />
+        <Switch>
+          <Route
+            path="/"
+            exact
+            component={() => (
+              <ContactList
+                contacts={contacts}
+                getContactId={removeContactHandler}
+              />
+            )}
+          />
+          <Route
+            path="/add"
+            component={() => (
+              <AddContatct addContatctHandler={addContatctHandler} />
+            )}
+          />
+        </Switch>
+        {/* <AddContatct addContatctHandler={addContatctHandler} />
+        <ContactList contacts={contacts} getContactId={removeContactHandler} />   */}
+      </Router>
     </div>
   );
 }
